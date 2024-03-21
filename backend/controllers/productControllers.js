@@ -4,7 +4,7 @@ import APIFilters from "../utils/apiFilters.js";
 import ErrorHandler from "../utils/errorHandler.js";
 
 // Create new Product   =>  /api/v1/products
-export const getProducts = catchAsynchErrors(async(req, res) => {
+export const getProducts = catchAsynchErrors(async(req, res, next) => {
 
     const resPerPage = 4;
     const apiFilters = new APIFilters(Product, req.query).search().filters();
@@ -15,6 +15,9 @@ export const getProducts = catchAsynchErrors(async(req, res) => {
     let products = await apiFilters.query;
     let filteredProductsCount = products.length;
 
+    /* return next(new ErrorHandler("Products Error", 400))  */
+
+    
     apiFilters.pagination(resPerPage);
     products = await apiFilters.query.clone();
 
