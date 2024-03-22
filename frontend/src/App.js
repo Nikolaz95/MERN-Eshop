@@ -15,6 +15,8 @@ import UpdateProfile from "./components/user/UpdateProfile";
 import  { Toaster } from 'react-hot-toast';
 //import router 
 import {BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import UploadAvatar from "./components/user/UploadAvatar";
+import UpdatePassword from "./components/user/UpdatePassword";
 
 function App() {
   return (
@@ -40,6 +42,19 @@ function App() {
           <Route path="/me/update_profile" element={
             <ProtectedRoute>
               <UpdateProfile />
+            </ProtectedRoute>
+          } />
+
+
+<Route path="/me/upload_avatar" element={
+            <ProtectedRoute>
+              <UploadAvatar />
+            </ProtectedRoute>
+          } />
+
+<Route path="/me/update_password" element={
+            <ProtectedRoute>
+              <UpdatePassword />
             </ProtectedRoute>
           } />
 
