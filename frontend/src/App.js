@@ -1,9 +1,14 @@
 import "./App.css"
+import Login from "./components/auth/Login";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import Register from "./components/auth/Register";
 
 import Home from "./components/Home";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
 import ProductDetails from "./components/product/ProductDetails";
+import Profile from "./components/user/Profile";
+import UpdateProfile from "./components/user/UpdateProfile";
 
 
 
@@ -23,6 +28,22 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+
+          <Route path="/me/profile" element={
+            <ProtectedRoute>
+              <Profile />
+          </ProtectedRoute>
+          } />
+
+          <Route path="/me/update_profile" element={
+            <ProtectedRoute>
+              <UpdateProfile />
+            </ProtectedRoute>
+          } />
+
+
       </Routes>
       </div>
 

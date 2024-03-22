@@ -6,13 +6,15 @@ import StarRatings from 'react-star-ratings';
 /* import { LiaStarSolid } from "react-icons/lia";
  */
 
-const ProductItem = ({ product }) => {
+const ProductItem = ({ product, columnSize }) => {
     return (
-        <div className="col-sm-12 col-md-6 col-lg-3 my-3">
+        <div className={`col-sm-12 col-md-6 col-lg-${columnSize} my-3`}>
             <div className="card p-3 rounded">
                 <img
                     className="card-img-top mx-auto"
-                    src={product?.images[0]?.url}
+                    src={product?.images[0]
+                        ? product?.images[0]?.url
+                        : "/images/default_product.png"}
                     alt={product?.name}
                 />
                 <div
@@ -31,11 +33,6 @@ const ProductItem = ({ product }) => {
                                 starDimension='15px'
                                 starSpacing='5px'
                             />
-                            {/* <LiaStarSolid />
-                            <LiaStarSolid />
-                            <LiaStarSolid />
-                            <LiaStarSolid />
-                            <LiaStarSolid /> */}
                         </div>
                         <span id="no_of_reviews" className="pt-2 ps-2">
                             {""}
