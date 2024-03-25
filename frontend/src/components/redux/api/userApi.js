@@ -56,8 +56,19 @@ export const userApi = createApi({
                 };
             },
         }),
+
+
+        forgotPassword: builder.mutation({
+            query(body) {
+                return {
+                    url: "/password/forgot",
+                    method: "POST",
+                    body,
+                };
+            },
+        }),
     }),
 });
 
 
-export const {useGetMeQuery, useUpdateProfileMutation, useUploadAvatarMutation, useUpdatePasswordMutation} = userApi;
+export const {useGetMeQuery, useUpdateProfileMutation, useUploadAvatarMutation, useUpdatePasswordMutation, useForgotPasswordMutation} = userApi;

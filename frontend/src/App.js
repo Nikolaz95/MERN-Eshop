@@ -9,14 +9,19 @@ import Header from "./components/layout/Header";
 import ProductDetails from "./components/product/ProductDetails";
 import Profile from "./components/user/Profile";
 import UpdateProfile from "./components/user/UpdateProfile";
+import UploadAvatar from "./components/user/UploadAvatar";
+import UpdatePassword from "./components/user/UpdatePassword";
+import ForgotPassword from "./components/auth/ForgotPassword";
 
 
 
 import  { Toaster } from 'react-hot-toast';
 //import router 
 import {BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import UploadAvatar from "./components/user/UploadAvatar";
-import UpdatePassword from "./components/user/UpdatePassword";
+import Cart from "./components/cart/Cart";
+import Shipping from "./components/cart/Shipping";
+import ConfirmOrder from "./components/cart/ConfirmOrder";
+import PaymentMethod from "./components/cart/PaymentMethod";
 
 function App() {
   return (
@@ -32,6 +37,8 @@ function App() {
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
+          <Route path="/password/forgot" element={<ForgotPassword />} />
 
           <Route path="/me/profile" element={
             <ProtectedRoute>
@@ -57,6 +64,28 @@ function App() {
               <UpdatePassword />
             </ProtectedRoute>
           } />
+
+<Route path="/cart" element={<Cart />} />
+
+
+<Route path="/shipping" element={
+  <ProtectedRoute>
+<Shipping />
+</ProtectedRoute>
+} />
+
+<Route path="/confirm_order" element={
+  <ProtectedRoute>
+<ConfirmOrder />
+</ProtectedRoute>
+} />
+
+
+<Route path="/payment_method" element={
+  <ProtectedRoute>
+<PaymentMethod />
+</ProtectedRoute>
+} />
 
 
       </Routes>
