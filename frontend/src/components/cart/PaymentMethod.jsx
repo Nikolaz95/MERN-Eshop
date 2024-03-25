@@ -13,7 +13,7 @@ const PaymentMethod = () => {
 
     const navigate = useNavigate();
 
-    const { shippingInfo, cartItems } = useSelector((state) => state.cart);
+    const { shippingInfo, cartItem } = useSelector((state) => state.cart);
 
     const [createNewOrder, { isLoading, error, isSuccess }] =
         useCreateNewOrderMutation();
@@ -32,13 +32,13 @@ const PaymentMethod = () => {
         e.preventDefault();
 
         const { itemsPrice, shippingPrice, taxPrice, totalPrice } =
-            calculateOrderCost(cartItems);
+            calculateOrderCost(cartItem);
 
         if (method === "COD") {
             // Create COD Order
             const orderData = {
                 shippingInfo,
-                orderItems: cartItems,
+                orderItems: cartItem,
                 itemsPrice,
                 shippingAmount: shippingPrice,
                 taxAmount: taxPrice,
