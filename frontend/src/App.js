@@ -22,6 +22,7 @@ import Cart from "./components/cart/Cart";
 import Shipping from "./components/cart/Shipping";
 import ConfirmOrder from "./components/cart/ConfirmOrder";
 import PaymentMethod from "./components/cart/PaymentMethod";
+import NotFound from "./components/layout/NotFound";
 
 function App() {
   return (
@@ -86,6 +87,8 @@ function App() {
 <PaymentMethod />
 </ProtectedRoute>
 } />
+
+<Route path="*" element={<NotFound />} />
 
 
       </Routes>

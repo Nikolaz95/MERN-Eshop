@@ -12,6 +12,7 @@ import MetaData from '../layout/MetaData';
 
 import StarRatings from 'react-star-ratings';
 import { setCartItem } from '../redux/features/CartSlice';
+import NotFound from '../layout/NotFound';
 
 
 
@@ -78,7 +79,13 @@ const ProductDetails = () => {
 
     console.log(data, isLoading)
 
+
     if (isLoading) return <Loader />
+
+
+    if (error && error?.status === 404) {
+        return <NotFound />
+    }
 
     return (
         <>
@@ -148,7 +155,7 @@ const ProductDetails = () => {
                         type="button"
                         id="cart_btn"
                         className="btn btn-primary d-inline ms-4"
-                        disabled={product.stock <= 0}
+                        disabled={product?.stock <= 0}
                         onClick={setItemToCart}
                     >
                         Add to Cart
