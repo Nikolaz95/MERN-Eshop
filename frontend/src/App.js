@@ -23,6 +23,8 @@ import Shipping from "./components/cart/Shipping";
 import ConfirmOrder from "./components/cart/ConfirmOrder";
 import PaymentMethod from "./components/cart/PaymentMethod";
 import NotFound from "./components/layout/NotFound";
+import MyOrders from "./components/order/MyOrders";
+import OrderDetails from "./components/order/OrderDetails";
 
 function App() {
   return (
@@ -87,6 +89,21 @@ function App() {
 <PaymentMethod />
 </ProtectedRoute>
 } />
+
+
+<Route path="/me/orders" element={
+  <ProtectedRoute>
+<MyOrders />
+</ProtectedRoute>
+} />
+
+<Route path="/me/order/:id" element={
+  <ProtectedRoute>
+<OrderDetails />
+</ProtectedRoute>
+} />
+
+
 
 <Route path="*" element={<NotFound />} />
 
