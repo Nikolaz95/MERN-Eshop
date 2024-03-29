@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react'
 import { useMyOrdersQuery } from '../redux/api/orderApi';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import MetaData from '../layout/MetaData';
 import Loader from "../layout/Loader";
 import { MDBDataTable } from "mdbreact";
 import { Link } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
 
 //import icon
 
 import { IoEyeSharp } from "react-icons/io5";
 import { IoPrintSharp } from "react-icons/io5";
+import { clearCart } from '../redux/features/CartSlice';
 
 
 
@@ -21,11 +22,11 @@ const MyOrders = () => {
 
     const { data, isLoading, error } = useMyOrdersQuery();
 
-    /* const [searchParams] = useSearchParams(); */
-    /* const dispatch = useDispatch(); */
-    /* const navigate = useNavigate(); */
+    const [searchParams] = useSearchParams();
+    const dispatch = useDispatch();
+    const Navigate = useNavigate();
 
-    /* const orderSuccess = searchParams.get("order_success"); */
+    const orderSuccess = searchParams.get("order_success");
 
 
     useEffect(() => {
@@ -33,7 +34,12 @@ const MyOrders = () => {
         if (error) {
             toast.error(error?.data?.message)
         }
-    }, [error]);
+
+        if (orderSuccess) {
+            dispatch(clearCart());
+            Navigate("/me/orders")
+        }
+    }, [error, orderSuccess]);
 
     if (isLoading) return <Loader />
 
