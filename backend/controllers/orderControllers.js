@@ -88,26 +88,35 @@ export const getOrderDetails = catchAsynchErrors(async (req, res, next) => {
             return next(new ErrorHandler("You have already delivered this order", 400));
         }
 
+
+        let productNotFound = false;
+
         // Update products stock
-  order?.orderItems?.forEach(async (item) => {
-    const product = await Product.findById(item?.product?.toString());
-    if (!product) {
-      return next(new ErrorHandler("No Product found with this ID", 404));
-    }
-    product.stock = product.stock - item.quantity;
-    await product.save({ validateBeforeSave: false });
-  });
-
-  order.orderStatus = req.body.status;
-  order.deliveredAt = Date.now();
-
-  await order.save();
-
-  res.status(200).json({
-    success: true,
-  });
-  
-});
+        for (const item of order.orderItems) {
+          const product = await Product.findById(item?.product?.toString());
+          if (!product) {
+            productNotFound = true;
+            break;
+          }
+          product.stock = product.stock - item.quantity;
+          await product.save({ validateBeforeSave: false });
+        }
+      
+        if (productNotFound) {
+          return next(
+            new ErrorHandler("No Product found with one or more IDs.", 404)
+          );
+        }
+      
+        order.orderStatus = req.body.status;
+        order.deliveredAt = Date.now();
+      
+        await order.save();
+      
+        res.status(200).json({
+          success: true,
+        });
+      });
 
 
 
@@ -211,8 +220,8 @@ function getDatesBetween(startDate, endDate) {
   const startDate = new Date(req.qury.startDate);
   const endtDate = new Date(req.qury.endtDate);
 
-  startDate.setHours(0,0,0,0);
-  endtDate.setHours(23,59,59,999);
+  startDate.setUTCHours(0, 0, 0, 0);
+  endtDate.setUTCHours(23, 59, 59, 999);
 
 
  const {salesData, totalSales, totalNumOrders} = await getSalesData(

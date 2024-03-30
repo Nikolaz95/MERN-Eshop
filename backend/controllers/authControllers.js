@@ -282,21 +282,25 @@ export const getUserDetails = catchAsynchErrors(async (req, res, next) => {
 
 
 
-      // delete   user  - admin   =>  /api/v1/admin/users/:id
-export const deleteUser = catchAsynchErrors(async (req, res, next) => {
-
-    const user = await User.findById(req.params.id);
-
-    if(!user) {
-        return next(new ErrorHandler(`User not find with id: ${req.params.id}`, 404)
-        );
-    }
-
-    // Todo - remove user avatar from  cloudinari
-    await user.deleteOne();
-
-    res.status(200).json({
-        user,
-    });
-  });
+    // Delete User - ADMIN  =>  /api/v1/admin/users/:id
+    export const deleteUser = catchAsynchErrors(async (req, res, next) => {
+        const user = await User.findById(req.params.id);
+      
+        if (!user) {
+          return next(
+            new ErrorHandler(`User not found with id: ${req.params.id}`, 404)
+          );
+        }
+      
+        // Remove user avatar from cloudinary
+        if (user?.avatar?.public_id) {
+          await delete_file(user?.avatar?.public_id);
+        }
+      
+        await user.deleteOne();
+      
+        res.status(200).json({
+          success: true,
+        });
+      });
 
