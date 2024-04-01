@@ -217,8 +217,8 @@ function getDatesBetween(startDate, endDate) {
  // Get Sales Data  =>  /api/v1/admin/get_sales
  export const getSales = catchAsynchErrors(async (req, res, next) => {
 
-  const startDate = new Date(req.qury.startDate);
-  const endtDate = new Date(req.qury.endtDate);
+  const startDate = new Date(req.query.startDate);
+const endtDate = new Date(req.query.endtDate);
 
   startDate.setUTCHours(0, 0, 0, 0);
   endtDate.setUTCHours(23, 59, 59, 999);

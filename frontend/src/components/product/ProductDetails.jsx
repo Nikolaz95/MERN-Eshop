@@ -69,7 +69,7 @@ const ProductDetails = () => {
             product: product?._id,
             name: product?.name,
             price: product?.price,
-            image: product?.image,
+            image: product?.images[0]?.url,
             stock: product?.stock,
             quantity
         };

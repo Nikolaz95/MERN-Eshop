@@ -86,8 +86,8 @@ const Cart = () => {
                                         <div className="row">
                                             <div className="col-4 col-lg-3">
                                                 <img
-                                                    src={cartItem?.image?.url
-                                                        ? cartItem?.image?.url
+                                                    src={item?.image[0]?.url
+                                                        ? item?.image?.url
                                                         : "/images/default_product.png"}
                                                     alt="Laptop"
                                                     height="90"
