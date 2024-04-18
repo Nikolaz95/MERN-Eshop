@@ -8,8 +8,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useLazyGetDashBoardSalesQuery } from '../redux/api/orderApi';
 
 const Dashboard = () => {
-    const [startDate, setStartDate] = useState(new Date().setDate(1));
-    const [endDate, setEndDate] = useState(new Date());
+    const [startData, setStartData] = useState(new Date().setDate(1));
+    const [endData, setEndData] = useState(new Date());
 
 
     const [getDashBoardSales, { error, isLoading, data }] = useLazyGetDashBoardSalesQuery();
@@ -19,18 +19,18 @@ const Dashboard = () => {
             toast.error(error?.data?.message)
         }
 
-        if (startDate && endDate && !data) {
+        if (startData && endData && !data) {
             /* getDashBoardSales({
                 startDate: new Date(startDate).toISOString(),
                 endDate: endDate.toISOString(),
             }); */
         }
-    }, [error]);
+    }, [error, startData, endData, data]);
 
     const submitHandler = () => {
         getDashBoardSales({
-            startDate: new Date(startDate).toISOString(),
-            endDate: endDate.toISOString(),
+            startData: new Date(startData).toISOString(),
+            endData: endData.toISOString(),
         });
     };
 
@@ -48,23 +48,23 @@ const Dashboard = () => {
                 <div className="mb-3 me-4">
                     <label className="form-label d-block">Start Date</label>
                     <DatePicker
-                        selected={startDate}
-                        onChange={(date) => setStartDate(date)}
+                        selected={startData}
+                        onChange={(date) => setStartData(date)}
                         selectsStart
-                        startDate={startDate}
-                        endDate={endDate}
+                        startDate={startData}
+                        endDate={endData}
                         className='form-control'
                     />
                 </div>
                 <div className="mb-3">
                     <label className="form-label d-block">End Date</label>
                     <DatePicker
-                        selected={endDate}
-                        onChange={(date) => setEndDate(date)}
+                        selected={endData}
+                        onChange={(date) => setEndData(date)}
                         selectsEnd
-                        startDate={startDate}
-                        endDate={endDate}
-                        minDate={startDate}
+                        startDate={startData}
+                        endDate={endData}
+                        minDate={startData}
                         className='form-control'
                     />
                 </div>
