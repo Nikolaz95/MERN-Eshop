@@ -36,6 +36,7 @@ const Home = () => {
 
 
     const { data, isLoading, error, isError } = useGetProductsQuery(params);
+    console.log(data)
 
     useEffect(() => {
         if (isError) {
