@@ -2,7 +2,7 @@
 
 import mongoose from "mongoose";
 
-const productSchema  = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, "Please enter product name"],
@@ -75,9 +75,9 @@ const productSchema  = new mongoose.Schema({
         ref: 'User',
         required: true,
     },
-    
-}, 
-{timestamps: true}
+
+},
+    { timestamps: true }
 );
 
-export default mongoose.model("Product", productSchema )
+export default mongoose.model("Product", productSchema)
